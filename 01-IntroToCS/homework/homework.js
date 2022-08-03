@@ -13,8 +13,7 @@ function BinarioADecimal(num) {
 
 function DecimalABinario(num) {
     // tu codigo aca
-    let arr = [],
-        num_origi = num;
+    let arr = [];
     do {
         arr.unshift(Math.floor(num % 2));
         num = num / 2;
