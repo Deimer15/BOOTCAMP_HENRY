@@ -1,14 +1,18 @@
 {
-  "name": "01-intro-to-cs",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "test": "jest --collectCoverage=false CS.test.js",
-    "grade": "jest --useStderr --json --outputFile=./tests/result.json"
-  },
-  "devDependencies": {
-    "jest": "^27.5.1"
-  },
-  "author": "",
-  "license": "ISC"
+    "name": "01-intro-to-cs",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "test": "jest --collectCoverage=false CS.test.js",
+        "grade": "jest --useStderr --json --outputFile=./tests/result.json",
+        "start": "nodemon homework.js"
+    },
+    "devDependencies": {
+        "jest": "^27.5.1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "nodemon": "^2.0.19"
+    }
 }
