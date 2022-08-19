@@ -13,13 +13,39 @@ Secuencia:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
 
 Como ejercicio adicional y completamente opcional, al terminar de resolver este problema pueden intentar definir funciones que logren los mismos resultados pero de manera iterativa.
 */
+let prod = 1,
+    cont = 1;
 
 function nFactorial(n) {
+    prod = prod * (cont + 1);
+    cont++;
+    if (cont === n) {
+        return prod;
+    }
+    if (cont !== n) return nFactorial(n);
 }
+
+let a = 0,
+    b = 1,
+    c = 0,
+    cont1 = 1;
 
 function nFibonacci(n) {
+    if (n === 0) return 0;
+    if (n === 1 || n === 2) return 1;
+    if (cont1 === 1) {
+        a = 0, b = 1, c = 0;
+        c = a + b;
+        a = c;
+    }
+    c = a + b, b = a, a = c;
+    if (cont1 >= n - 2) {
+        cont1 = 1;
+        return c;
+    }
+    cont1++;
+    if (cont1 <= n - 1) return nFibonacci(n);
 }
-
 /*
 Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde el primer elemento que ingresa es el primero que se quita. Definir los siguientes métodos:
   - enqueue: agrega un valor respetando el orden.
@@ -28,16 +54,34 @@ Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde e
 
 Pueden utilizar class o función constructora.
 */
-
-function Queue() {
-
+class Queue {
+    constructor() {
+        this.elementos = [];
+        this.tamanio = 0;
+    }
+    enqueue(element) {
+        this.elementos.push(element);
+        this.tamanio++;
+    }
+    dequeue() {
+        if (this.tamanio === 0) return undefined;
+        this.tamanio--;
+        return this.elementos.shift();
+    }
+    size() {
+        if (!this.tamanio) return 0;
+        return this.tamanio;
+    }
 }
+
+
+
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
 
 module.exports = {
-  Queue,
-  nFactorial,
-  nFibonacci
+    Queue,
+    nFactorial,
+    nFibonacci
 };
