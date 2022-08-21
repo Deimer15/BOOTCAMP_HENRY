@@ -65,7 +65,7 @@ class LinkedList {
 
     search(arg) {
         let indice = this.head;
-        while (indice !== null) {
+        while (indice) {
             if (typeof arg === 'function') {
                 if (arg(indice.value) === true) {
                     return indice.value;
@@ -74,19 +74,12 @@ class LinkedList {
             if (indice.value === arg) {
                 return indice.value;
             }
-            console.log(indice.value);
             indice = indice.next;
         }
         return null;
     }
 }
 
-/*let lista = new LinkedList();
-lista.add('hola');
-lista.add('hola1');
-console.log(lista.search(function(valor) {
-    return valor = 'hola1';
-}));*/
 
 
 
@@ -106,8 +99,51 @@ La clase debe tener los siguientes métodos:
 Ejemplo: supongamos que quiero guardar {instructora: 'Ani'} en la tabla. Primero puedo chequear, con hasKey, si ya hay algo en la tabla con el nombre 'instructora'; luego, invocando set('instructora', 'Ani'), se almacenará el par clave-valor en un bucket específico (determinado al hashear la clave)
 */
 
-function HashTable() {}
+class HashTable {
+    constructor() {
+        this.numBuckets = 35;
+        this.slots = [];
+    }
+    hash(input) {
+        let sum = 0;
+        for (let i = 0; i < input.length; i++) {
+            sum += input.charCodeAt(i);
+        }
+        return sum % this.numBuckets;
+    }
+    set(key, value) {
+        if (typeof key !== 'string') throw new TypeError('Keys must be strings');
+        if (this.slots[this.hash(key)] === undefined) {
+            this.slots[this.hash(key)] = {};
+        }
+        this.slots[this.hash(key)][key] = value;
+    }
+    get(key) {
+        for (let i = 0; i < this.numBuckets; i++) {
+            if (this.slots[i] !== undefined && this.slots[i].hasOwnProperty([key])) {
+                return this.slots[i][key];
+            }
+        }
+        return false;
+    }
+    hasKey(key) {
+        if (this.get(key) === false) return false;
+        return true;
 
+
+    }
+
+}
+let haschin = new HashTable();
+haschin.set('foo', '123456');
+haschin.set('ofo', '654321');
+haschin.set('oof', '54321');
+console.log(haschin.slots);
+console.log(haschin.hasKey('dei'));
+/*let nueva = new HashTable();
+console.log(nueva.hash('foo'));
+nueva.set('foo', 'hola');
+console.log(nueva);*/
 // No modifiquen nada debajo de esta linea
 // --------------------------------
 
