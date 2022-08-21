@@ -5,15 +5,91 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
   - add: agrega un nuevo nodo al final de la lista;
   - remove: elimina el último nodo de la lista y retorna su valor (tener en cuenta el caso particular de una lista de un solo nodo y de una lista vacía);
   - search: recibe un parámetro y lo busca dentro de la lista, con una particularidad: el parámetro puede ser un valor o un callback. En el primer caso, buscamos un nodo cuyo valor coincida con lo buscado; en el segundo, buscamos un nodo cuyo valor, al ser pasado como parámetro del callback, retorne true. 
-  Ejemplo: 
+  Ejemplo:
   search(3) busca un nodo cuyo valor sea 3;
   search(isEven), donde isEven es una función que retorna true cuando recibe por parámetro un número par, busca un nodo cuyo valor sea un número par.
   En caso de que la búsqueda no arroje resultados, search debe retornar null.
 */
 
-function LinkedList() {}
+class Node {
+    constructor(info) {
+        this.value = info;
+        this.next = null;
+    }
+}
+class LinkedList {
+    constructor() {
+        this.head = null;
+        this.size = 0;
+    }
 
-function Node(value) {}
+    add(info) {
+        let NewNodo = new Node(info);
+        if (this.size === 0) {
+            this.head = NewNodo;
+            NewNodo.next = null;
+            this.size++;
+        } else {
+            let indice = this.head;
+            while (indice.next !== null) {
+                indice = indice.next;
+            }
+            indice.next = NewNodo;
+            this.size++;
+        }
+    }
+
+    remove() {
+        let lb = null
+        if (this.size === 0) return null;
+        if (this.size === 1) {
+            lb = this.head;
+            this.head = this.head.next;
+            this.size--;
+            return lb.value;
+        }
+        let final = this.head;
+        let indice = this.head;
+        while (indice !== null) {
+            if (final.next.next === null) {
+                lb = final.next.value;
+                break;
+            }
+            final = indice;
+            indice = final.next;
+        }
+        final.next = null;
+        this.size--;
+        return lb;
+    }
+
+    search(arg) {
+        let indice = this.head;
+        while (indice !== null) {
+            if (typeof arg === 'function') {
+                if (arg(indice.value) === true) {
+                    return indice.value;
+                }
+            }
+            if (indice.value === arg) {
+                return indice.value;
+            }
+            console.log(indice.value);
+            indice = indice.next;
+        }
+        return null;
+    }
+}
+
+/*let lista = new LinkedList();
+lista.add('hola');
+lista.add('hola1');
+console.log(lista.search(function(valor) {
+    return valor = 'hola1';
+}));*/
+
+
+
 
 /*
 Implementar la clase HashTable.
@@ -36,7 +112,7 @@ function HashTable() {}
 // --------------------------------
 
 module.exports = {
-  Node,
-  LinkedList,
-  HashTable,
+    Node,
+    LinkedList,
+    HashTable,
 };
